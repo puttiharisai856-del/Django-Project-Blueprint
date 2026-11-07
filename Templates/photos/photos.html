@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Photos</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafd;
+            color: #202124;
+        }
+
+        header {
+            height: 75px;
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+            gap: 30px;
+            position: sticky;
+            top: 0;
+            background-color: #f8fafd;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            color: #5f6368;
+            width: 230px;
+        }
+
+        .logo img {
+            width: 35px;
+        }
+
+        .search {
+            background-color: #e9eef6;
+            height: 48px;
+            width: 55%;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .search input {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 16px;
+            width: 100%;
+            padding-left: 12px;
+        }
+
+        .profile {
+            margin-left: auto;
+            background-color: #1967d2;
+            color: white;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        aside {
+            width: 250px;
+            padding: 20px 12px;
+            height: calc(100vh - 75px);
+            position: sticky;
+            top: 75px;
+        }
+
+        aside ul {
+            list-style: none;
+        }
+
+        aside li {
+            padding: 15px 22px;
+            margin-bottom: 5px;
+            border-radius: 30px;
+            color: #444746;
+            cursor: pointer;
+        }
+
+        aside li:hover {
+            background-color: #e8eaed;
+        }
+
+        aside .active {
+            background-color: #d3e3fd;
+            color: #0842a0;
+        }
+
+        main {
+            flex: 1;
+            padding: 25px 35px;
+            min-width: 0;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 25px;
+        }
+
+        .memories {
+            display: flex;
+            gap: 18px;
+            overflow-x: auto;
+            margin-bottom: 35px;
+        }
+
+        .memory {
+            min-width: 190px;
+            height: 140px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .memory img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .memory p {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 4px black;
+        }
+
+        h2 {
+            font-size: 21px;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .photos {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .photo {
+            height: 190px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .photo img:hover {
+            transform: scale(1.05);
+        }
+
+        .albums {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+        .album {
+            width: 180px;
+        }
+
+        .album img {
+            width: 180px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .album p {
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 900px) {
+            aside {
+                width: 180px;
+            }
+
+            .photos {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            aside {
+                display: none;
+            }
+
+            main {
+                padding: 20px 12px;
+            }
+
+            .photos {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .photo {
+                height: 150px;
+            }
+
+            .logo {
+                width: auto;
+            }
+
+            .logo span {
+                display: none;
+            }
+
+            .search {
+                width: 65%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            <img src="https://www.gstatic.com/images/branding/product/1x/photos_48dp.png">
+            <span>Google Photos</span>
+        </div>
+
+        <div class="search">
+            🔍
+            <input type="text" placeholder="Search your photos">
+        </div>
+
+        <div class="profile">H</div>
+
+    </header>
+
+    <div class="container">
+
+        <aside>
+            <ul>
+                <li class="active">▦ Photos</li>
+                <li>◷ Memories</li>
+                <li>▣ Albums</li>
+                <li>👥 Sharing</li>
+                <li>📁 Archive</li>
+                <li>🗑 Bin</li>
+            </ul>
+        </aside>
+
+        <main>
+
+            <h1>Photos</h1>
+
+            <h2>Memories</h2>
+
+            <div class="memories">
+
+                <div class="memory">
+                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400">
+                    <p>Nature</p>
+                </div>
+
+                <div class="memory">
+                    <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=400">
+                    <p>Beautiful Days</p>
+                </div>
+
+                <div class="memory">
+                    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=400">
+                    <p>Travel</p>
+                </div>
+
+                <div class="memory">
+                    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400">
+                    <p>Memories</p>
+                </div>
+
+            </div>
+
+            <h2>Albums</h2>
+
+            <div class="albums">
+
+                <div class="album">
+                    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=400">
+                    <p>Travel</p>
+                </div>
+
+                <div class="album">
+                    <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400">
+                    <p>Nature</p>
+                </div>
+
+                <div class="album">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400">
+                    <p>People</p>
+                </div>
+
+            </div>
+
+            <h2>Recently added</h2>
+
+            <div class="photos">
+
+                <div class="photo">
+                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500">
+                </div>
+
+                <div class="photo">
+                    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=500">
+                </div>
+
+                <div class="photo">
+                    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=500">
+                </div>
+
+                <div class="photo">
+                    <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=500">
+                </div>
+
+                <div class="photo">
+                    <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=500">
+                </div>
+
+                <div class="photo">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500">
+                </div>
+
+                <div class="photo">
+                    <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?w=500">
+                </div>
+
+                <div class="photo">
+                    <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=500">
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+</html>

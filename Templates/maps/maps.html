@@ -1,0 +1,408 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Maps</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Header */
+
+        header {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0 25px;
+            gap: 30px;
+            background-color: white;
+            box-shadow: 0 2px 5px #ccc;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            font-size: 23px;
+            color: #4285f4;
+        }
+
+        .search {
+            width: 600px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            background-color: #f1f3f4;
+            border-radius: 30px;
+            padding: 0 20px;
+        }
+
+        .search input {
+            border: none;
+            outline: none;
+            background: transparent;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .search button {
+            border: none;
+            background: transparent;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .profile {
+            margin-left: auto;
+            font-size: 25px;
+        }
+
+        /* Main Layout */
+
+        .container {
+            display: flex;
+            height: calc(100vh - 70px);
+        }
+
+        /* Sidebar */
+
+        .sidebar {
+            width: 260px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 2px 0 5px #ddd;
+            z-index: 1;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 25px;
+            color: #444;
+        }
+
+        .menu {
+            padding: 15px;
+            margin-bottom: 8px;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .menu:hover {
+            background-color: #e8f0fe;
+        }
+
+        .active {
+            background-color: #dce8fc;
+            color: #1967d2;
+        }
+
+        .sidebar hr {
+            margin: 20px 0;
+            border: 1px solid #eee;
+        }
+
+        /* Map Area */
+
+        .map {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background-color: #e8e5dc;
+        }
+
+        /* Roads */
+
+        .road {
+            position: absolute;
+            background-color: white;
+            border: 1px solid #d4d0c8;
+        }
+
+        .road1 {
+            width: 120%;
+            height: 35px;
+            top: 35%;
+            left: -10%;
+            transform: rotate(-15deg);
+        }
+
+        .road2 {
+            width: 120%;
+            height: 30px;
+            top: 65%;
+            left: -10%;
+            transform: rotate(12deg);
+        }
+
+        .road3 {
+            width: 35px;
+            height: 120%;
+            left: 35%;
+            top: -10%;
+            transform: rotate(12deg);
+        }
+
+        .road4 {
+            width: 30px;
+            height: 120%;
+            left: 70%;
+            top: -10%;
+            transform: rotate(-15deg);
+        }
+
+        .road5 {
+            width: 120%;
+            height: 18px;
+            top: 15%;
+            left: -10%;
+            transform: rotate(5deg);
+        }
+
+        /* Buildings and parks */
+
+        .building {
+            position: absolute;
+            background-color: #d5d0c4;
+            border: 2px solid #cbc5b9;
+            border-radius: 5px;
+        }
+
+        .b1 {
+            width: 130px;
+            height: 90px;
+            top: 15%;
+            left: 12%;
+        }
+
+        .b2 {
+            width: 150px;
+            height: 100px;
+            top: 48%;
+            left: 12%;
+        }
+
+        .b3 {
+            width: 140px;
+            height: 100px;
+            top: 15%;
+            left: 48%;
+        }
+
+        .b4 {
+            width: 120px;
+            height: 90px;
+            top: 75%;
+            left: 48%;
+        }
+
+        .park {
+            position: absolute;
+            width: 180px;
+            height: 130px;
+            background-color: #b8d8a8;
+            border-radius: 10px;
+            top: 55%;
+            right: 10%;
+        }
+
+        /* Location Markers */
+
+        .marker {
+            position: absolute;
+            background-color: #4285f4;
+            color: white;
+            padding: 10px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            font-size: 16px;
+            box-shadow: 0 2px 5px #777;
+        }
+
+        .marker span {
+            display: block;
+            transform: rotate(45deg);
+        }
+
+        .m1 {
+            top: 30%;
+            left: 45%;
+        }
+
+        .m2 {
+            top: 55%;
+            left: 75%;
+        }
+
+        .m3 {
+            top: 75%;
+            left: 30%;
+        }
+
+        /* Map Labels */
+
+        .label {
+            position: absolute;
+            color: #666;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .l1 {
+            top: 25%;
+            left: 15%;
+        }
+
+        .l2 {
+            top: 50%;
+            left: 50%;
+        }
+
+        .l3 {
+            top: 80%;
+            left: 75%;
+        }
+
+        /* Zoom Controls */
+
+        .controls {
+            position: absolute;
+            right: 20px;
+            bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .controls button {
+            width: 45px;
+            height: 45px;
+            border: none;
+            background-color: white;
+            font-size: 25px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px #aaa;
+        }
+
+        .controls button:hover {
+            background-color: #eee;
+        }
+
+        /* Mobile */
+
+        @media(max-width: 700px) {
+            .sidebar {
+                display: none;
+            }
+
+            header {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .logo {
+                font-size: 17px;
+            }
+
+            .search {
+                width: 100%;
+            }
+
+            .profile {
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">📍 Google Maps</div>
+
+        <div class="search">
+            <input type="text" placeholder="Search Google Maps">
+            <button>🔍</button>
+        </div>
+
+        <div class="profile">👤</div>
+
+    </header>
+
+    <div class="container">
+
+        <div class="sidebar">
+
+            <h3>Google Maps</h3>
+
+            <div class="menu active">🏠 Explore</div>
+            <div class="menu">⭐ Saved</div>
+            <div class="menu">🕘 Recent</div>
+            <div class="menu">📍 Your places</div>
+            <div class="menu">🛣️ Directions</div>
+
+            <hr>
+
+            <div class="menu">📌 Favorites</div>
+            <div class="menu">❤️ Want to go</div>
+            <div class="menu">⚙️ Settings</div>
+
+        </div>
+
+        <div class="map">
+
+            <!-- Roads -->
+
+            <div class="road road1"></div>
+            <div class="road road2"></div>
+            <div class="road road3"></div>
+            <div class="road road4"></div>
+            <div class="road road5"></div>
+
+            <!-- Buildings -->
+
+            <div class="building b1"></div>
+            <div class="building b2"></div>
+            <div class="building b3"></div>
+            <div class="building b4"></div>
+
+            <!-- Park -->
+
+            <div class="park"></div>
+
+            <!-- Location Markers -->
+
+            <div class="marker m1"><span>📍</span></div>
+            <div class="marker m2"><span>📍</span></div>
+            <div class="marker m3"><span>📍</span></div>
+
+            <!-- Labels -->
+
+            <div class="label l1">Shopping Mall</div>
+            <div class="label l2">Main Road</div>
+            <div class="label l3">City Park</div>
+
+            <!-- Zoom Controls -->
+
+            <div class="controls">
+                <button>+</button>
+                <button>−</button>
+                <button>📍</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
+```
